@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4gmcrpyyilrw"]
+
+[ext_resource type="Texture2D" uid="uid://cp84ybnm4xly3" path="res://icon.svg" id="1_jr8p5"]
+[ext_resource type="Script" path="res://scenes/enemies/enemy.gd" id="1_xrexs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mlkk"]
+size = Vector2(128, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0f06i"]
+radius = 65.7647
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_xrexs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.803922, 0, 0.239216, 1)
+texture = ExtResource("1_jr8p5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5mlkk")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(76, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_0f06i")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]

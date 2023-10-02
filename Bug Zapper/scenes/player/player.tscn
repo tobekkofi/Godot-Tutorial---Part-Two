@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://kk0jj8xoo2b1"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ei3pm"]
+[ext_resource type="Texture2D" uid="uid://cp84ybnm4xly3" path="res://icon.svg" id="1_njrsw"]
+[ext_resource type="Script" path="res://scenes/player/WeaponManager.gd" id="3_tus7t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyyqe"]
+size = Vector2(126, 128)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 15
+script = ExtResource("1_ei3pm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_njrsw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vyyqe")
+
+[node name="WeaponManager" type="Node2D" parent="."]
+script = ExtResource("3_tus7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponManager"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(1.8, 0.16)
+texture = ExtResource("1_njrsw")
+
+[node name="Marker2D" type="Marker2D" parent="WeaponManager"]
+position = Vector2(116, 0)
+
+[connection signal="fire" from="." to="WeaponManager" method="_on_player_fire"]
